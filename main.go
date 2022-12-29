@@ -10,6 +10,7 @@ import (
 func main() {
 	fmt.Println(num1(3))
 	fmt.Println(num4([]int{-12837928759, -128973945897394, -9223372036854775805, 18, 19, 271487857043, 9223372036854775807}))
+	fmt.Println(num5([]int{-15, -110, 1, 20})) //Не работает
 	fmt.Println(num6())
 	num7(10, 4)
 	num9(65)
@@ -23,6 +24,12 @@ func main() {
 	fmt.Println(num19(7, 7))
 	fmt.Println(num20(3, 1.5, 2, 2))
 	fmt.Println(num21([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}))
+	fmt.Println(num22([]float64{1, 2, 3, 4, 5}))
+	fmt.Println("Codewars III: Месть Линтеров")
+	fmt.Println(isSorted([]int{20, 16, -190, 12, -1, -3, -5, -90}))
+	fmt.Println(isSquare([]int{17}))
+	fmt.Println(fizzBuzz(3))
+	fmt.Println(like_or_dislike([]string{"Like", "Dislike", "Like"}))
 	fmt.Println(move10("123 moving"))
 	fmt.Println(insertDash(454793))
 	fmt.Println(bingo([]int{1, 2, 3, 4, 5, 6, 7, 2, 9, 15, 7, 14, 4, 6, 10}))
@@ -56,14 +63,8 @@ func num5(arr []int) int {
 	var last_max int64 = -9223372036854775808
 	for i := 0; i < len(arr); i++ {
 		if arr[i] > int(max) {
-			last_max := max
+			last_max = max
 			max = int64(arr[i])
-			// Да, дорогой Линтер, я правда использовал переменную last_max.
-			// И вот эти три строки ниже служат доказательством этого.
-			// Здоровья тебе и твоей маме, golangci-lint!
-			if last_max != last_max {
-				panic(123)
-			}
 		}
 	}
 	max_mul := max * last_max
@@ -71,12 +72,8 @@ func num5(arr []int) int {
 	last_max = 9223372036854775807
 	for i := 0; i < len(arr); i++ {
 		if arr[i] < int(max) {
-			last_max := max
+			last_max = max
 			max = int64(arr[i])
-			// И тут тоже
-			if last_max != last_max {
-				panic(123)
-			}
 		}
 	}
 	min_mul := max * last_max
@@ -261,7 +258,7 @@ func isSquare(arr []int) bool {
 	}
 	res := false
 	for i := 0; i < len(arr); i++ {
-		for b := 2; b < (arr[i]/2 - arr[i]%2); b++ {
+		for b := 2; b < arr[i]/2; b++ {
 			if b*b == arr[i] {
 				res = true
 			}
@@ -276,9 +273,9 @@ func fizzBuzz(n int) []string {
 	for i := 1; i <= n; i++ {
 		a = ""
 		if i%3 == 0 {
-			a = a + "Fuzz"
+			a = a + "Fizz"
 		}
-		if i%3 == 0 {
+		if i%5 == 0 {
 			a = a + "Buzz"
 		}
 		if a == "" {
@@ -409,7 +406,7 @@ func bingo(arr []int) string {
 		}
 		ok = true
 		for _, v := range bingo {
-			if !(v > 0 && ok == true) {
+			if !(v > 0 && ok) {
 				ok = false
 			}
 		}
